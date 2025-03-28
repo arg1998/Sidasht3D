@@ -61,12 +61,16 @@ STATIC_ASSERT(sizeof(f64)   == 8, "Expected f64 to be 8 bytes.");
 
 #if defined(TRACY_ENABLE)
     // for RelWithTracyProfiler build variant in CMake
+    // here, we still run the editor and the game but in relase mode so thta we can profile them
     #define S3D_RELEASE_PROFILING_BUILD
 #elif defined(NDEBUG)
     // Debug build variant in CMake
+    // here, we only build the game and not the editor
+    // meaning that in this build variant, the actual game is being built
     #define S3D_RELEASE_BUILD
 #else
     // Relase or RelWithDebInfo built variants in CMake
+    // old school debug mode where the game with editor is enabeld
     #define S3D_DEBUG_BUILD
 #endif
 #pragma endregion

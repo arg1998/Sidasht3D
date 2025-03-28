@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.18)
+cmake_minimum_required(VERSION 3.29)
 
 project(Sidasht3D_Game LANGUAGES CXX)
 
