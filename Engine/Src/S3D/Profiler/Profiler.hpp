@@ -4,9 +4,12 @@
 
 #include <tracy/Tracy.hpp>
 
-#if defined(S3D_RELEASE_PROFILING_BUILD)
+// FIXME: This method of instrumenting healp alloc/free only works on Windows.
+// on linux/macos, it cuases infinite recursion and segfaults
+// find a better way that works across all platforms  
+#if defined(S3D_RELEASE_PROFILING_BUILD) && defined(S3D_PLATFORM_WINDOWS)
 
-    constexpr u16 TRACY_STACK_CAPTURE_SIZE = 32;
+    constexpr u16 TRACY_STACK_CAPTURE_SIZE = 16;
 
     inline void* __S3D_PRIVATE__MALLOC_PROFILED(size_t size) {
         ZoneScopedN("Heap Alloc");

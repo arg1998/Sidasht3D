@@ -83,4 +83,4 @@ void __PRIVATE_LOG(LogLevel logLevel, const char* file, int line, fmt::format_st
 #define LOG_INFO(msg, ...) __PRIVATE_LOG(LogLevel::S3D_LOG_LEVEL_INFO, __FILENAME__, __LINE__, msg, ##__VA_ARGS__)
 #define LOG_WARNING(msg, ...) __PRIVATE_LOG(LogLevel::S3D_LOG_LEVEL_WARNING, __FILENAME__, __LINE__, msg, ##__VA_ARGS__)
 #define LOG_ERROR(msg, ...) __PRIVATE_LOG(LogLevel::S3D_LOG_LEVEL_ERROR, __FILENAME__, __LINE__, msg, ##__VA_ARGS__)
-#define LOG_FATAL(msg, ...) __PRIVATE_LOG(LogLevel::S3D_LOG_LEVEL_FATAL, __FILENAME__, __LINE__, msg, ##__VA_ARGS__)
+#define LOG_FATAL(msg, ...) __PRIVATE_LOG(LogLevel::S3D_LOG_LEVEL_FATAL, __FILENAME__, __LINE__, msg, ##__VA_ARGS__); S3D_DEBUG_BREAK()

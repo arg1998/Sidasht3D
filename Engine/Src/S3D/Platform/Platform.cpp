@@ -8,8 +8,8 @@ PlatformOS s3d::GetPlatformOperatingSystem() {
     #elif defined(S3D_PLATFORM_MACOS)
         return PlatformOS::MacOS;
     #elif defined(S3D_PLATFORM_LINUX)
-        return PlatformOS::Linux
+        return PlatformOS::Linux;
     #else
-    //  TODO: throw an error 
+        #error "GetPlatformOperatingSystem() aborted with unknown platform"
     #endif
 }

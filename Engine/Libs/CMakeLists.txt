@@ -3,8 +3,6 @@ include(FetchContent)
 
 set(RAYLIB_VERSION 5.5)
 set(TRACY_VERSION 0.11.1)
-set(FMT_VERSION 11.1.4)
-
 
 
 FetchContent_Declare(
@@ -18,16 +16,6 @@ target_include_directories(raylib PUBLIC
     ${raylib_SOURCE_DIR}/src
     ${raylib_SOURCE_DIR}/src/external/glfw/include
 )
-
-
-FetchContent_Declare(
-    tracy
-    DOWNLOAD_EXTRACT_TIMESTAMP OFF
-    URL "https://github.com/wolfpld/tracy/archive/refs/tags/v${TRACY_VERSION}.tar.gz"
-    FIND_PACKAGE_ARGS
-)
-FetchContent_MakeAvailable(tracy)
-
 
 
 FetchContent_Declare(
@@ -92,20 +80,25 @@ FetchContent_MakeAvailable(fmt)
 
 
 # Set RelWithTracyProfiler build type settings
-set(CMAKE_CXX_FLAGS_RELWITHTRACYPROFILER "${CMAKE_CXX_FLAGS_RELWITHDEBINFO} -fno-omit-frame-pointer -Wno-inline-new-delete -DTRACY_ENABLE" CACHE STRING "Compiler flags when profiling" FORCE)
+set(CMAKE_CXX_FLAGS_RELWITHTRACYPROFILER "${CMAKE_CXX_FLAGS_RELWITHDEBINFO} -fno-omit-frame-pointer -Wno-inline-new-delete" CACHE STRING "Compiler flags when profiling" FORCE)
 set(CMAKE_EXE_LINKER_FLAGS_RELWITHTRACYPROFILER "${CMAKE_EXE_LINKER_FLAGS_RELWITHDEBINFO} -rdynamic" CACHE STRING "Linker flags when profiling" FORCE)
 set(CMAKE_SHARED_LINKER_FLAGS_RELWITHTRACYPROFILER "${CMAKE_SHARED_LINKER_FLAGS_RELWITHDEBINFO} -rdynamic" CACHE STRING "Shared libs flags when profiling" FORCE)
 
+FetchContent_Declare(
+    tracy
+    DOWNLOAD_EXTRACT_TIMESTAMP OFF
+    URL "https://github.com/wolfpld/tracy/archive/refs/tags/v${TRACY_VERSION}.tar.gz"
+    FIND_PACKAGE_ARGS
+)
+
 if(CMAKE_BUILD_TYPE STREQUAL "RelWithTracyProfiler")
-    option(TRACY_ENABLE "Enable Tracy Profiler" ON)
-    set(TRACY_ENABLE ON)
+    set(TRACY_ENABLE ON CACHE BOOL "Enable Tracy Profiler" FORCE)
     message("Tracy Profiler is ON")
 else()
-    option(TRACY_ENABLE "Enable Tracy Profiler" OFF)
-    set(TRACY_ENABLE OFF)
+    set(TRACY_ENABLE OFF CACHE BOOL "Disable Tracy Profiler" FORCE)
     message("Tracy Profiler is OFF")
 endif()
-
+FetchContent_MakeAvailable(tracy)
 target_compile_options(TracyClient PRIVATE -Wno-error) 
 
 

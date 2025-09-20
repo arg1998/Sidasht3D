@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.29)
+cmake_minimum_required(VERSION 3.25)
 
 project(Sidasht3D_Engine LANGUAGES CXX)
 set(CXX_STANDARD_REQUIRED 17)
